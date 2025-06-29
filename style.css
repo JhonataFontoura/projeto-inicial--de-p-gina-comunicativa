@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Página</title>
+    <link rel="stylesheet" href="style.css"> <!-- Aqui faz o link com o CSS -->
+    <style>
+        /* Carregar a fonte Vendya diretamente no HTML */
+        @font-face {
+            font-family: 'Vendya';
+            src: url('fonts/Vendya-Regular.ttf') format('truetype'); /* Caminho para a fonte */
+        }
+
+        /* Estilos para o <h1> */
+        h1 {
+            font-family: 'Vendya', sans-serif; /* Aplica a fonte Vendya */
+            text-align: center; /* Centraliza o texto horizontalmente */
+            color: #D8A7FF; /* Cor lilás */
+            font-size: 3rem; /* Ajuste o tamanho da fonte */
+            margin-top: 20px; /* Ajuste da margem superior */
+        }
+
+        /* Estilo do body */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            height: 100vh; /* Altura total da tela */
+            flex-direction: column;
+            align-items: center; /* Centraliza o conteúdo verticalmente */
+            background: url('imagens/será2.jpg') no-repeat center center fixed; /* Caminho da sua imagem */
+            background-size: cover; /* Garante que a imagem cubra toda a tela */
+        }
+
+        /* Container principal (tabela + chat) */
+        .main-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+
+        /* Tabela dos personagens (à esquerda) */
+        .character-table {
+            width: 40%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Adicionando leve transparência ao fundo */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            background: url('imagens/será2.jpg') no-repeat center center fixed; /* Imagem de fundo para a tabela */
+            background-size: cover;
+        }
+
+        /* Estilos da tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #D8A7FF; /* Cor lilás */
+            color: white;
+        }
+
+        /* Container do Chat (à direita) */
+        .chat-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Adicionando leve transparência ao fundo */
+            border-radius: 8px;
+            width: 55%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 80vh; /* Ajuste da altura para não ocupar toda a tela */
+            max-height: 80vh;
+            overflow: hidden;
+            background: url('imagens/será2.jpg') no-repeat center center fixed; /* Imagem de fundo para o chat */
+            background-size: cover;
+        }
+
+        /* Área onde as mensagens aparecem */
+        .chat-box {
+            padding: 10px;
+            background-color: #f9f9f9;
+            flex-grow: 1; /* Flexível para preencher o espaço disponível */
+            overflow-y: auto;
+            margin-bottom: 20px; /* Espaço para o botão e campo de entrada */
+        }
+
+        /* Estilo das mensagens */
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #D8A7FF; /* Lilás */
+            color: white;
+            word-wrap: break-word;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Caixa de entrada de texto */
+        .input-box {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .input-box button {
+            padding: 10px 20px;
+            background-color: #D8A7FF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .input-box button:hover {
+            background-color: #9b7ae0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vallir</h1>
+
+    <!-- Container principal (tabela + chat) -->
+    <div class="main-container">
+        
+        <!-- Tabela dos personagens -->
+        <div class="character-table">
+            <h2>Personagens</h2>
+
+            <!-- Tabela para Atributos e Perícias de Vários Personagens -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Espécie</th>
+                        <th>Constituição</th>
+                        <th>Força</th>
+                        <th>Destreza</th>
+                        <th>Agilidade</th>
+                        <th>Inteligência</th>
+                        <th>Força de Vontade</th>
+                        <th>Percepção</th>
+                        <th>Carisma</th>
+                        <th>Furtividade</th>
+                        <th>Medicina</th>
+                        <th>Lábia</th>
+                        <th>Manipulação</th>
+                        <th>Intimidação</th>
+                        <th>Arma</th>
+                        <th>Luta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Personagem 1</td>
+                        <td>Humano</td>
+                        <td>10</td>
+                        <td>12</td>
+                        <td>14</td>
+                        <td>13</td>
+                        <td>15</td>
+                        <td>11</td>
+                        <td>16</td>
+                        <td>8</td>
+                        <td>12</td>
+                        <td>10</td>
+                        <td>14</td>
+                        <td>13</td>
+                        <td>8</td>
+                        <td>15</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Personagem 2</td>
+                        <td>Elfo</td>
+                        <td>11</td>
+                        <td>13</td>
+                        <td>15</td>
+                        <td>12</td>
+                        <td>14</td>
+                        <td>10</td>
+                        <td>17</td>
+                        <td>9</td>
+                        <td>14</td>
+                        <td>13</td>
+                        <td>16</td>
+                        <td>15</td>
+                        <td>9</td>
+                        <td>17</td>
+                        <td>13</td>
+                    </tr>
+                    <!-- Adicione mais personagens conforme necessário -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Container do Chat -->
+        <div class="chat-container">
+            <!-- Área onde as mensagens aparecem -->
+            <div class="chat-box" id="chat-box">
+                <!-- Mensagens serão inseridas aqui -->
+            </div>
+
+            <!-- Caixa de entrada e botão para enviar mensagens -->
+            <div class="input-box">
+                <input type="text" id="message-input" placeholder="Digite sua mensagem..." />
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Função para enviar a mensagem no chat
+        function sendMessage() {
+            const inputField = document.getElementById("message-input");
+            const messageText = inputField.value;
+
+            if (messageText.trim() !== "") {
+                const messageElement = document.createElement("div");
+                messageElement.classList.add("message");
+                messageElement.textContent = messageText;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.classList.add("delete-button");
+                deleteButton.textContent = "Apagar";
+                deleteButton.onclick = function() {
+                    messageElement.remove();
+                };
+
+                messageElement.appendChild(deleteButton);
+                const chatBox = document.getElementById("chat-box");
+                chatBox.appendChild(messageElement);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+                inputField.value = "";
+            }
+        }
+
+        document.getElementById("message-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+
+</body>
+</html>

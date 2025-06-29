@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Página</title>
+    <link rel="stylesheet" href="style.css"> <!-- Aqui faz o link com o CSS -->
+    <style>
+
+        /* Carregar a fonte Vendya diretamente no HTML */
+        @font-face {
+            font-family: 'Vendya';
+            src: url('fonts/Vendya-Regular.ttf') format('truetype'); /* Caminho para a fonte */
+        }
+
+        /* Estilos para o <h1> */
+        h1 {
+            font-family: 'Vendya', sans-serif; /* Aplica a fonte Vendya */
+            text-align: center; /* Centraliza o texto horizontalmente */
+            color: #D8A7FF; /* Cor lilás */
+            font-size: 3rem; /* Ajuste o tamanho da fonte */
+            margin-top: 20px; /* Ajuste da margem superior */
+        }
+
+        /* Container principal (tabela + chat) */
+        .main-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin-top: 30px;
+            gap: 30px; /* Espaçamento entre as colunas */
+        }
+
+        /* Estilo das tabelas (sem fundo sólido, apenas o fundo da página visível) */
+        .table-container {
+            width: 32%; /* Tamanho fixo para as tabelas */
+            background-color: transparent; /* Sem fundo sólido, totalmente transparente */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Estilos das tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            color: white; /* Cor do texto para branco */
+        }
+
+        table th {
+            background-color: #D8A7FF; /* Cor lilás */
+        }
+
+        /* Container do Chat (à direita) */
+        .chat-container {
+            background-color: transparent; /* Sem fundo sólido, totalmente transparente */
+            border-radius: 8px;
+            width: 55%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 80vh; /* Ajuste da altura para não ocupar toda a tela */
+            max-height: 80vh;
+            overflow: hidden;
+            background: url('imagens/será2.jpg') no-repeat center center fixed; /* Imagem de fundo para o chat */
+            background-size: cover;
+        }
+
+        /* Área onde as mensagens aparecem */
+        .chat-box {
+            padding: 10px;
+            background-color: rgba(249, 249, 249, 0.9); /* Fundo ligeiramente branco para contraste */
+            flex-grow: 1; /* Flexível para preencher o espaço disponível */
+            overflow-y: auto;
+            margin-bottom: 20px; /* Espaço para o botão e campo de entrada */
+        }
+
+        /* Estilo das mensagens */
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #D8A7FF; /* Lilás */
+            color: white;
+            word-wrap: break-word;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Caixa de entrada de texto */
+        .input-box {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .input-box button {
+            padding: 10px 20px;
+            background-color: #D8A7FF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .input-box button:hover {
+            background-color: #9b7ae0;
+        }
+
+        /* Estilo para o Map */
+        .map-container {
+            width: 32%;
+            background-color: transparent;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Permite rolagem quando o conteúdo é maior que o espaço disponível */
+            max-height: 400px; /* Limita a altura da tabela */
+        }
+
+        /* Estilo para as imagens dentro da tabela */
+        .map-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .map-container button {
+            padding: 10px;
+            background-color: #D8A7FF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Alteração na cor do título das tabelas */
+        h2 {
+            color: white; /* Muda a cor do título para branco */
+            font-family: 'Vendya', sans-serif;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        /* Estilo para as imagens dos personagens */
+        .character-image {
+            width: 50px; /* Definindo o tamanho da imagem */
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Estilo para os itens do Elo */
+        .elo-item {
+            background-color: transparent; /* Fundo transparente, igual ao da página */
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd; /* Borda para os itens, se necessário */
+        }
+
+        .elo-item button {
+            background-color: #9b7ae0;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .elo-item button:hover {
+            background-color: #7f61d0;
+        }
+
+        /* Adicionando rolagem ao container de Elo */
+        #elo-container {
+            max-height: 300px; /* Limita a altura do container */
+            overflow-y: auto; /* Permite a rolagem vertical */
+            margin-bottom: 20px; /* Espaçamento inferior */
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h1>Vallir</h1>
+
+    <!-- Container principal (tabela + chat) -->
+    <div class="main-container">
+        
+        <!-- Tabela dos personagens -->
+        <div class="table-container">
+            <h2>Personagens</h2>
+
+            <!-- Tabela para Atributos e Perícias de Vários Personagens -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nome</th>
+                        <th>Espécie</th>
+                        <th>Constituição</th>
+                        <th>Força</th>
+                        <th>Destreza</th>
+                        <th>Agilidade</th>
+                        <th>Inteligência</th>
+                        <th>Força de Vontade</th>
+                        <th>Percepção</th>
+                        <th>Carisma</th>
+                        <th>Furtividade</th>
+                        <th>Medicina</th>
+                        <th>Lábia</th>
+                        <th>Manipulação</th>
+                        <th>Intimidação</th>
+                        <th>Arma</th>
+                        <th>Luta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="imagens/Elizabeth Owens.jpg" alt="Personagem 1" class="character-image"></td>
+                        <td>Elizabeth Owens</td>
+                        <td>Vampira</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Seraphim Grimmwood.jpg" alt="Personagem 2" class="character-image"></td>
+                        <td>Seraphim Grimmwood</td>
+                        <td>Bruxa</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Charles Salvatore.jpg" alt="Personagem 3" class="character-image"></td>
+                        <td>Charles Salvatore</td>
+                        <td>Lobo Evoluido</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>8</td>
+                    <tr>
+                        <td><img src="imagens/Anthea.jpg" alt="Personagem 4" class="character-image"></td>
+                        <td>Anthea ????</td>
+                        <td>Vampira</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Melinoe Verant.jpg" alt="Personagem 5" class="character-image"></td>
+                        <td>Melinoe Verant</td>
+                        <td>Bruxa</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>7</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Teana D'onix.jpg" alt="Personagem 6" class="character-image"></td>
+                        <td>Teana D'onix</td>
+                        <td>Humana</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Matt Brown.jpg" alt="Personagem 7" class="character-image"></td>
+                        <td>Matt Brown</td>
+                        <td>Humano</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Teana D'onix.jpg" alt="Personagem 6" class="character-image"></td>
+                        <td>Teana D'onix</td>
+                        <td>Humana</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Teana D'onix.jpg" alt="Personagem 6" class="character-image"></td>
+                        <td>Teana D'onix</td>
+                        <td>Humana</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Teana D'onix.jpg" alt="Personagem 6" class="character-image"></td>
+                        <td>Teana D'onix</td>
+                        <td>Humana</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><img src="imagens/Teana D'onix.jpg" alt="Personagem 6" class="character-image"></td>
+                        <td>Teana D'onix</td>
+                        <td>Humana</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabela Elo -->
+        <div class="table-container">
+            <h2>Elo</h2>
+
+            <!-- Área para o Elo -->
+            <div id="elo-container">
+                <!-- Os itens inseridos aparecerão aqui -->
+            </div>
+
+            <!-- Input para adicionar um novo item ao Elo -->
+            <input type="text" id="elo-name" placeholder="Digite o item do Elo">
+
+            <!-- Botão para adicionar item -->
+            <button onclick="addElo()">Adicionar ao Elo</button>
+        </div>
+
+        <!-- Tabela Map -->
+        <div class="map-container">
+            <h2>Map</h2>
+
+            <!-- Tabela com as imagens -->
+            <div id="map-images">
+                <!-- As imagens adicionadas aparecerão aqui -->
+            </div>
+
+            <!-- Input para nomear a imagem -->
+            <input type="text" id="image-name" placeholder="Nome da Imagem">
+
+            <!-- Botão para adicionar imagem -->
+            <input type="file" id="file-input" accept="image/*" onchange="previewImage(event)">
+            <button onclick="addImage()">Adicionar Imagem</button>
+            <div id="image-preview-container" style="margin-top: 20px; display: none;">
+                <h3>Pré-visualização da Imagem:</h3>
+                <img id="image-preview" src="" alt="Pré-visualização da imagem" style="max-width: 100%; border-radius: 8px;">
+            </div>
+        </div>
+
+        <!-- Container do Chat -->
+        <div class="chat-container">
+            <!-- Área onde as mensagens aparecem -->
+            <div class="chat-box" id="chat-box">
+                <!-- Mensagens serão inseridas aqui -->
+            </div>
+
+            <!-- Caixa de entrada e botão para enviar mensagens -->
+            <div class="input-box">
+                <input type="text" id="message-input" placeholder="Digite sua mensagem..." />
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+// Função para adicionar um item ao Elo
+function addElo() {
+    var eloName = document.getElementById('elo-name').value.trim();
+    var eloContainer = document.getElementById('elo-container');
+
+    if (eloName) {
+        var eloElement = document.createElement('div');
+        eloElement.classList.add('elo-item');
+
+        // Adiciona o nome do Elo
+        var eloText = document.createElement('p');
+        eloText.textContent = eloName;
+        eloElement.appendChild(eloText);
+
+        // Botão de Remover Elo
+        var removeButton = document.createElement('button');
+        removeButton.textContent = 'Remover';
+        removeButton.onclick = function() {
+            removeElo(eloName, eloElement); // Remover do Elo e do localStorage
+        };
+        eloElement.appendChild(removeButton);
+
+        // Adiciona o item ao container
+        eloContainer.appendChild(eloElement);
+
+        // Salvar automaticamente no localStorage
+        saveEloItem(); // Chama a função de salvamento ao adicionar um novo item
+
+        // Limpa o campo de input
+        document.getElementById('elo-name').value = '';
+    }
+}
+
+// Função para salvar os itens no localStorage
+function saveEloItem() {
+    var eloItems = [];
+    var eloContainer = document.getElementById('elo-container');
+    var eloElements = eloContainer.getElementsByClassName('elo-item');
+
+    // Coleta todos os nomes de Elos dentro do container
+    for (var i = 0; i < eloElements.length; i++) {
+        var eloName = eloElements[i].getElementsByTagName('p')[0].textContent;
+        eloItems.push(eloName);
+    }
+
+    // Verifica se o localStorage está disponível
+    if (typeof(Storage) !== "undefined") {
+        try {
+            // Salva os itens no localStorage
+            localStorage.setItem('eloItems', JSON.stringify(eloItems));
+            console.log('Itens salvos no localStorage:', eloItems);
+        } catch (e) {
+            console.error('Erro ao salvar no localStorage:', e);
+        }
+    } else {
+        console.error('O localStorage não está disponível no seu navegador.');
+    }
+}
+
+// Função para carregar os itens do Elo do localStorage
+function loadEloItems() {
+    var eloItems = JSON.parse(localStorage.getItem('eloItems')) || [];
+    var eloContainer = document.getElementById('elo-container');
+
+    // Limpa o container antes de carregar os novos itens
+    eloContainer.innerHTML = '';
+
+    // Adiciona cada item de Elo ao container
+    eloItems.forEach(function(eloName) {
+        var eloElement = document.createElement('div');
+        eloElement.classList.add('elo-item');
+
+        // Adiciona o nome do Elo
+        var eloText = document.createElement('p');
+        eloText.textContent = eloName;
+        eloElement.appendChild(eloText);
+
+        // Botão de Remover Elo
+        var removeButton = document.createElement('button');
+        removeButton.textContent = 'Remover';
+        removeButton.onclick = function() {
+            removeElo(eloName, eloElement);
+        };
+        eloElement.appendChild(removeButton);
+
+        // Adiciona o item ao container
+        eloContainer.appendChild(eloElement);
+    });
+
+    console.log('Itens carregados do localStorage:', eloItems);
+}
+
+// Função para remover um item do Elo
+function removeElo(eloName, eloElement) {
+    var eloContainer = document.getElementById('elo-container');
+    eloContainer.removeChild(eloElement);
+
+    var eloItems = JSON.parse(localStorage.getItem('eloItems')) || [];
+    var index = eloItems.indexOf(eloName);
+    if (index !== -1) {
+        eloItems.splice(index, 1);
+        try {
+            localStorage.setItem('eloItems', JSON.stringify(eloItems));
+            console.log('Itens após remoção do localStorage:', eloItems);
+        } catch (e) {
+            console.error('Erro ao remover do localStorage:', e);
+        }
+    }
+}
+
+// Função para enviar uma mensagem no chat
+function sendMessage() {
+    var messageInput = document.getElementById('message-input');
+    var messageText = messageInput.value.trim();
+
+    if (messageText) {
+        addMessageToChat(messageText);
+        saveMessage(messageText);
+
+        messageInput.value = '';
+
+        var chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+}
+
+// Função para adicionar a mensagem no chat visualmente
+function addMessageToChat(messageText, index = null) {
+    var chatBox = document.getElementById('chat-box');
+
+    var messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.style.position = 'relative';
+
+    var messageContent = document.createElement('span');
+    messageContent.textContent = messageText;
+
+    var removeButton = document.createElement('button');
+    removeButton.innerHTML = '🗑️';
+    removeButton.classList.add('remove-btn');
+
+    removeButton.onclick = function() {
+        removeMessage(messageText, messageElement);
+    };
+
+    messageElement.appendChild(messageContent);
+    messageElement.appendChild(removeButton);
+
+    chatBox.appendChild(messageElement);
+}
+
+// Função para salvar uma mensagem no localStorage
+function saveMessage(message) {
+    let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    messages.push(message);
+    localStorage.setItem('chatMessages', JSON.stringify(messages));
+}
+
+// Função para carregar as mensagens salvas
+function loadMessages() {
+    let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    messages.forEach(function(msg) {
+        addMessageToChat(msg);
+    });
+
+    var chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Função para remover uma mensagem do chat e do localStorage
+function removeMessage(messageText, messageElement) {
+    var chatBox = document.getElementById('chat-box');
+    chatBox.removeChild(messageElement);
+
+    let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    let index = messages.indexOf(messageText);
+    if (index !== -1) {
+        messages.splice(index, 1);
+        localStorage.setItem('chatMessages', JSON.stringify(messages));
+    }
+}
+
+// Função para adicionar a imagem com o nome acima
+function addImage() {
+    var imageInput = document.getElementById('file-input');
+    var imageName = document.getElementById('image-name').value.trim();
+    var imageContainer = document.getElementById('map-images');
+
+    if (imageInput.files && imageInput.files[0] && imageName) {
+        var imageFile = imageInput.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var imageElement = document.createElement('div');
+            imageElement.classList.add('image-element');
+
+            var imageTitle = document.createElement('p');
+            imageTitle.textContent = imageName;
+            imageTitle.style.color = 'white';
+            imageElement.appendChild(imageTitle);
+
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = imageName;
+            img.style.maxWidth = '100%';
+            img.style.borderRadius = '8px';
+            imageElement.appendChild(img);
+
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'Remover';
+            removeButton.style.marginTop = '10px';
+            removeButton.style.padding = '5px 10px';
+            removeButton.style.backgroundColor = 'red';
+            removeButton.style.color = 'white';
+            removeButton.style.border = 'none';
+            removeButton.style.cursor = 'pointer';
+
+            removeButton.onclick = function() {
+                imageContainer.removeChild(imageElement);
+                saveBackup();
+            };
+
+            imageElement.appendChild(removeButton);
+
+            imageContainer.appendChild(imageElement);
+
+            saveBackup();
+        };
+
+        reader.readAsDataURL(imageFile);
+
+        document.getElementById('image-name').value = '';
+        imageInput.value = '';
+    } else {
+        alert("Por favor, insira um nome e selecione uma imagem.");
+    }
+}
+
+// Função para salvar o backup no localStorage
+function saveBackup() {
+    var imageContainer = document.getElementById('map-images');
+    var images = [];
+
+    var imageElements = imageContainer.getElementsByClassName('image-element');
+    for (var i = 0; i < imageElements.length; i++) {
+        var imageElement = imageElements[i];
+        var imageTitle = imageElement.getElementsByTagName('p')[0].textContent;
+        var imageSrc = imageElement.getElementsByTagName('img')[0].src;
+
+        images.push({ name: imageTitle, src: imageSrc });
+    }
+
+    localStorage.setItem('imageBackup', JSON.stringify(images));
+}
+
+// Função para carregar o backup ao carregar a página
+function loadBackup() {
+    var imageContainer = document.getElementById('map-images');
+
+    var backup = localStorage.getItem('imageBackup');
+    if (backup) {
+        var images = JSON.parse(backup);
+
+        for (var i = 0; i < images.length; i++) {
+            var image = images[i];
+            var imageElement = document.createElement('div');
+            imageElement.classList.add('image-element');
+
+            var imageTitle = document.createElement('p');
+            imageTitle.textContent = image.name;
+            imageTitle.style.color = 'white';
+            imageElement.appendChild(imageTitle);
+
+            var img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.name;
+            img.style.maxWidth = '100%';
+            img.style.borderRadius = '8px';
+            imageElement.appendChild(img);
+
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'Remover';
+            removeButton.style.marginTop = '10px';
+            removeButton.style.padding = '5px 10px';
+            removeButton.style.backgroundColor = 'red';
+            removeButton.style.color = 'white';
+            removeButton.style.border = 'none';
+            removeButton.style.cursor = 'pointer';
+
+            removeButton.onclick = function() {
+                imageContainer.removeChild(imageElement);
+                saveBackup();
+            };
+
+            imageElement.appendChild(removeButton);
+
+            imageContainer.appendChild(imageElement);
+        }
+    }
+}
+
+// Função para inicializar tudo ao carregar a página
+function initializePage() {
+    loadEloItems();   // Carrega os Elos
+    loadMessages();   // Carrega as mensagens do chat
+    loadBackup();     // Carrega as imagens salvas
+}
+
+// Chama a função de inicialização
+window.onload = initializePage;
+
+
+    </script>
+    </script>
+</body>
+</html>
